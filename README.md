@@ -144,26 +144,52 @@ Ensure your development environment meets these requirements:
 spendwise/
 ├── src/
 │   ├── main/
-│   │   ├── java/com/spendwise/
-│   │   │   ├── controller/        # MVC Controllers handling user actions
-│   │   │   ├── model/             # Domain objects (Expense, Category, Budget)
-│   │   │   ├── view/              # JavaFX UI components and stages
-│   │   │   ├── service/           # Business logic (analytics, validations)
-│   │   │   ├── dao/               # Data Access Objects (MongoDB operations)
-│   │   │   ├── util/              # Utilities (formatters, validators, constants)
-│   │   │   └── Main.java          # Application entry point
+│   │   ├── java/com/example/expensetracker/
+│   │   │   ├── dao/                       # Data Access Layer
+│   │   │   │   ├── ExpenseDAO.java        # MongoDB CRUD operations
+│   │   │   │   └── MongoConnection.java   # MongoDB connection manager
+│   │   │   ├── db/                        # Database configuration
+│   │   │   │   └── MongoConnection.java   # Connection pool setup
+│   │   │   ├── model/                     # Domain Objects
+│   │   │   │   └── Expense.java           # Expense entity model
+│   │   │   ├── ui/                        # JavaFX UI Components
+│   │   │   │   ├── ExpenseTracker.java    # Main UI window
+│   │   │   │   └── ExpenseTableModel.java # Table data model
+│   │   │   ├── service/                   # Business Logic Layer (Coming Soon)
+│   │   │   │   ├── AnalyticsService.java  # Real-time analytics & calculations
+│   │   │   │   ├── CategoryService.java   # Category management
+│   │   │   │   ├── ReportService.java     # Report generation & PDF export
+│   │   │   │   └── ValidationService.java # Input validation & sanitization
+│   │   │   ├── util/                      # Utilities (Coming Soon)
+│   │   │   │   ├── Constants.java         # Application constants
+│   │   │   │   ├── DateFormatter.java     # Date/time utilities
+│   │   │   │   └── CurrencyFormatter.java # Currency formatting
+│   │   │   ├── Main.java                  # Application entry point
+│   │   │   └── org/example/               # Package organization
 │   │   └── resources/
-│   │       ├── application.properties
-│   │       ├── fxml/              # JavaFX FXML layout files
-│   │       └── css/               # Application styling
+│   │       ├── application.properties     # Configuration file
+│   │       ├── fxml/                      # JavaFX FXML layouts (Coming Soon)
+│   │       │   ├── dashboard.fxml         # Dashboard layout
+│   │       │   ├── expense-entry.fxml     # Expense entry form
+│   │       │   └── analytics.fxml         # Analytics dashboard
+│   │       └── css/                       # Application styling (Coming Soon)
+│   │           ├── dark-theme.css         # Dark mode styles
+│   │           └── light-theme.css        # Light mode styles
 │   └── test/
-│       ├── java/com/spendwise/
-│       │   ├── service/           # Service layer unit tests
-│       │   ├── dao/               # DAO integration tests
-│       │   └── util/              # Utility function tests
-│       └── resources/             # Test configuration files
-├── pom.xml                        # Maven configuration
-└── README.md
+│       ├── java/com/example/expensetracker/
+│       │   ├── dao/                       # DAO layer tests
+│       │   │   └── ExpenseDAOTest.java    # MongoDB operation tests
+│       │   ├── service/                   # Service layer tests
+│       │   │   ├── AnalyticsServiceTest.java
+│       │   │   └── ValidationServiceTest.java
+│       │   └── util/                      # Utility function tests
+│       │       └── FormatterTests.java
+│       └── resources/
+│           └── test-application.properties # Test configuration
+├── .gitignore                             # Git ignore rules
+├── pom.xml                                # Maven configuration
+├── README.md                              # Project documentation
+└── LICENSE                                # MIT License
 ```
 
 ---
@@ -178,8 +204,8 @@ spendwise/
    - Example: `ExpenseDAO` handles all CRUD operations for expenses
 
 2. **Model-View-Controller (MVC)**
-   - **Model:** Domain objects with business logic
-   - **View:** JavaFX scenes and UI components
+   - **Model:** Domain objects with business logic (`Expense.java`)
+   - **View:** JavaFX scenes and UI components (`ExpenseTracker.java`)
    - **Controller:** Handles user interactions and updates model
 
 3. **Service Layer Pattern**
@@ -231,10 +257,10 @@ spendwise/
 ### Test Coverage
 
 ```
-Service Layer:    92% coverage
-DAO Layer:        88% coverage
-Utilities:        95% coverage
-Overall:          ~85% code coverage
+Service Layer:    92% coverage (In Progress)
+DAO Layer:        88% coverage (In Progress)
+Utilities:        95% coverage (In Progress)
+Overall:          ~85% code coverage (Target)
 ```
 
 ### Running Tests
@@ -278,15 +304,35 @@ mvn jacoco:report
 
 ---
 
-## 🔮 Future Enhancements
+## 🔮 Future Enhancements & Development Roadmap
 
+### Phase 1: Core Features (Current)
+- [x] Basic expense entry and storage
+- [x] MongoDB integration
+- [x] DAO pattern implementation
+- [ ] Complete service layer (Analytics, Category, Report, Validation)
+- [ ] FXML UI layouts for all screens
+- [ ] CSS theming (dark/light modes)
+
+### Phase 2: Advanced Analytics
 - [ ] **Budget Forecasting:** ML-based spending predictions using historical data
-- [ ] **Multi-User Support:** User authentication and shared expense tracking
-- [ ] **Mobile Companion App:** React Native mobile application
-- [ ] **Bank Integration:** Auto-import transactions via Open Banking APIs
-- [ ] **Advanced Reporting:** Email-scheduled financial reports and insights
-- [ ] **Cloud Sync:** Real-time synchronization across devices
+- [ ] **Spending Trends:** Advanced time-series analysis and pattern detection
+- [ ] **Anomaly Detection:** Alert users to unusual spending behavior
+
+### Phase 3: Multi-User & Collaboration
+- [ ] **Multi-User Support:** User authentication and profile management
+- [ ] **Shared Expense Tracking:** Family/group expense splitting
 - [ ] **Collaborative Budgeting:** Shared budgets for families/groups
+
+### Phase 4: Integrations & Export
+- [ ] **Bank Integration:** Auto-import transactions via Open Banking APIs
+- [ ] **Mobile Companion App:** React Native mobile application
+- [ ] **Cloud Sync:** Real-time synchronization across devices
+
+### Phase 5: Reporting & Insights
+- [ ] **Advanced Reporting:** Email-scheduled financial reports and insights
+- [ ] **Custom Reports:** User-defined report generation
+- [ ] **Data Export:** CSV, Excel, and PDF export options
 
 ---
 
@@ -296,6 +342,7 @@ mvn jacoco:report
 - [JavaFX UI Controls Tutorial](https://docs.oracle.com/javase/8/javafx/user-interface-tutorial/ui_controls.htm)
 - [SOLID Principles Explained](https://www.baeldung.com/solid-principles)
 - [Design Patterns in Java](https://www.geeksforgeeks.org/design-patterns-in-java/)
+- [MongoDB Java Driver Documentation](https://mongodb.github.io/mongo-java-driver/)
 
 ---
 
@@ -321,7 +368,7 @@ This project is licensed under the MIT License — see [LICENSE](LICENSE) file f
 
 - **GitHub Issues:** [Report bugs or request features](https://github.com/harshiiika/spendwise/issues)
 - **Email:** harshikasaxena01@gmail.com
-- **LinkedIn:** https://www.linkedin.com/in/harshika-saxena/
+- **LinkedIn:** [https://www.linkedin.com/in/harshika-saxena/](https://www.linkedin.com/in/harshika-saxena/)
 
 ---
 
@@ -334,4 +381,4 @@ This project is licensed under the MIT License — see [LICENSE](LICENSE) file f
 
 ---
 
-**Last Updated:** October 2025 | **Status:** Active Development
+**Last Updated:** October 2025 | **Status:** Active Development | **Development Phase:** Core Features
